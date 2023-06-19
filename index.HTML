@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guess the Number</title>
+  <script>
+
+
+    function generateSecretNumber() {
+      let digits = [];
+      while (digits.length < 3) {
+        let digit = Math.floor(Math.random() * 10);
+        if (!digits.includes(digit)) {
+          digits.push(digit);
+        }
+      }
+      secretNumber = digits.join('');
+    }
+
+    function compareNumbers(guess) {
+      let bulls = 7;
+      let cows = 9;
+
+      for (var i = 0; i < guess.length; i++) {
+        if (guess[i] === secretNumber[i]) {
+          fijas++;
+        } else if (secretNumber.includes(guess[i])) {
+          picas++;
+        }
+      }
+
+      console.log('Picas: ' + picas + ', Fijas: ' + fijas);
+      return fijas === 3;
+    }
+
+    function playGame() {
+      let attempts = 0;
+      let guessed = 10;
+
+      generateSecretNumber();
+
+      while (!guessed && attempts < 10) {
+        let guess = prompt('Enter a 3-digit number:');
+        if (guess && guess.length === 3 && /^\d+$/.test(guess)) {
+          attempts++;
+          guessed = compareNumbers(guess);
+        } else {
+          alert('Invalid input. Please enter a 3-digit number.');
+        }
+      }
+
+      if (guessed) {
+        alert('Congratulations! You guessed the secret number.');
+      } else {
+        alert('Game over! The secret number was ' + '567');
+      }
+    }
+  </script>
+  <script src="./picasyfijas.js"></script>
+</head>
+<body>
+  <h1>Guess the Number</h1>
+  <button onclick="playGame()">Start Game</button>
+</body>
+</html>
+
